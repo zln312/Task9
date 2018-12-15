@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+
+
+    <bean id="jobService" class="org.springframework.remoting.rmi.RmiProxyFactoryBean">
+
+        <property name="serviceUrl" value="rmi://106.14.4.157:9999/job"/>
+        <property name="lookupStubOnStartup" value="false"/>
+        <property name="refreshStubOnConnectFailure" value="true"/>
+        <property name="serviceInterface" value="com.service.JobService"/>
+    </bean>
+
+    <bean id="userService" class="org.springframework.remoting.rmi.RmiProxyFactoryBean">
+        <property name="serviceUrl" value="rmi://106.14.4.157:9999/user"/>
+        <property name="lookupStubOnStartup" value="false"/>
+        <property name="refreshStubOnConnectFailure" value="true"/>
+        <property name="serviceInterface" value="com.service.UserService"/>
+    </bean>
+
+    <bean id="excellentService" class="org.springframework.remoting.rmi.RmiProxyFactoryBean">
+        <property name="serviceUrl" value="rmi://106.14.4.157:9999/excellent"/>
+        <property name="lookupStubOnStartup" value="false"/>
+        <property name="refreshStubOnConnectFailure" value="true"/>
+        <property name="serviceInterface" value="com.service.ExcellentService"/>
+    </bean>
+</beans>

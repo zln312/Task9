@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 这里的头文件是需要手动配置的 -->
+<!--这里注意命名空间需要加上接口的路劲，后面的name是接口的名字。———— 待验证-->
+<composite xmlns="http://docs.oasis-open.org/ns/opencsa/sca/200912"
+
+           xmlns:tuscany="http://tuscany.apache.org/xmlns/sca/1.1"
+
+           targetNamespace="http://com.service2"
+
+           name="ServiceComponent2">
+
+    <component name="StudentServiceComponent2">
+        <implementation.spring location="ApplicationContext.xml"/>
+        <!--这里的name属性要和Spring配置文件中的<sca:service  里的name属性保持一致 。-->
+        <service name="excellent">
+            <interface.java interface="com.service.ExcellentService"/>
+            <tuscany:binding.rmi uri="rmi://106.14.4.157:9999/excellent"/>
+        </service>
+        <!--xmlns:scallop="http://scallop/xmlns/sca/1.0"  -->
+        <service name="job">
+            <interface.java interface="com.service.JobService"/>
+            <tuscany:binding.rmi uri="rmi://106.14.4.157:9999/job"/>
+        </service>
+        <service name="user">
+            <interface.java interface="com.service.UserService"/>
+            <tuscany:binding.rmi uri="rmi://106.14.4.157:9999/user"/>
+        </service>
+
+    </component>
+</composite>

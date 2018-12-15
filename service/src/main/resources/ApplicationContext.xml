@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:sca="http://www.springframework.org/schema/sca"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans.xsd
+http://www.springframework.org/schema/context
+http://www.springframework.org/schema/context/spring-context-2.5.xsd http://www.springframework.org/schema/sca http://www.osoa.org/xmlns/sca/1.0/spring-sca.xsd">
+     <bean id="propertyConfig" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+         <property name="locations">
+             <list>
+                 <value>
+                     classpath:db.properties
+                 </value>
+             </list>
+         </property>
+     </bean>
+
+    <context:component-scan base-package="com"/>
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+    <property name="url" value="${url}"/>
+    <property name="driverClassName" value="${driver}"/>
+    <property name="username" value="${username}"/>
+    <property name="password" value="${password}"/>
+    <property name="validationQuery" value="SELECT 1"/>
+    <property name="testOnBorrow" value="true"/>
+    </bean>
+
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+    <property name="dataSource" ref="dataSource"/>
+    <property name="mapperLocations" value="classpath:mapper/userMapper.xml"/>
+    </bean>
+
+
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+
+    <property name="basePackage" value="com.mapper"/>
+    </bean>
+
+
+    <bean id="excellentService" class="com.service.ExcellentServiceImpl"/>
+    <bean id="jobService" class="com.service.JobServiceImpl"/>
+    <bean id="userService" class="com.service.UserServiceImpl"/>
+
+
+    <!--  type里是service接口路径，target里是实现类在ioc容器中的id，就是上面bean的id -->
+    <sca:service name="excellent" type="com.service.ExcellentService" target="excellentService"/>
+    <sca:service name="job" type="com.service.JobService" target="jobService"/>
+    <sca:service name="user" type="com.service.UserService" target="userService"/>
+
+
+</beans>
